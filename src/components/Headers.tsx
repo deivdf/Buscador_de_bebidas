@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 export default function Headers() {
   return (
     <header className="bg-slate-800">
@@ -8,8 +8,9 @@ export default function Headers() {
                 <img className="w-32" src="logo.svg" alt="logotipo" />
               </div>
               <nav>
-                <Link className="text-white hover:text-orange-500 font-bold px-4" to="/">Home</Link>
-                <Link className="text-white hover:text-orange-500 font-bold px-4" to="/Favorite">Favorite</Link>
+                {/* isActive para resaltar la pagina actual si esta seleccionada con operadores ternarios atraves de el callback que nos ofrece NavLink*/}
+                <NavLink className={({isActive})=> isActive ? "text-orange-500 hover:text-orange-500 font-bold px-4": "text-white hover:text-orange-500 font-bold px-4"} to="/">Home</NavLink>
+                <NavLink className={({isActive})=> isActive ? "text-orange-500 hover:text-orange-500 font-bold px-4": "text-white hover:text-orange-500 font-bold px-4"} to="/Favorite">Favorite</NavLink>
               </nav>
             </div>
         </div>
