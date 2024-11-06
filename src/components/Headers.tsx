@@ -1,10 +1,19 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import {NavLink, useLocation} from 'react-router-dom'
+import { useAppStore } from '../store/useAppStore'
 export default function Headers() {
   const location = useLocation()
   console.log(location.pathname)
   const isHome = useMemo(()=> location.pathname === '/', [location.pathname])
   console.log(isHome)
+  const feachtCategories = useAppStore((state) => state.feachtCategories)
+  const categories = useAppStore((state) => state.categories)
+  console.log(categories)
+
+  useEffect(() =>{
+    feachtCategories()
+
+  },[])
   //bg-header es una clase de tailwind que se crea en el archivo tailwind.config.js para agregar un background image
   return (
     <header className={isHome ? "bg-header bg-center bg-cover" : "bg-slate-800"}>
