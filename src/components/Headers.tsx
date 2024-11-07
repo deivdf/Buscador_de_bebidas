@@ -7,12 +7,10 @@ export default function Headers() {
   const isHome = useMemo(()=> location.pathname === '/', [location.pathname])
   console.log(isHome)
   const feachtCategories = useAppStore((state) => state.feachtCategories)
-  const categories = useAppStore((state) => state.categories)
-  console.log(categories)
+  const categories = useAppStore((state) => state.categories) 
 
   useEffect(() =>{
     feachtCategories()
-
   },[])
   //bg-header es una clase de tailwind que se crea en el archivo tailwind.config.js para agregar un background image
   return (
@@ -61,6 +59,16 @@ export default function Headers() {
                   className="p-3 focus:outline-none rounded-lg w-full"
                   >
                   <option value="">-- Seleccione Categoria --</option>
+                  {
+                      categories.drinks.map((category)=>(
+                        <option 
+                          value={category.strCategory}
+                          key={category.strCategory}
+                          >
+                            {category.strCategory}
+                          </option>
+                      ))
+                  }
                   </select>
                 </div>
                 <input 
