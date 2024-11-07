@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
 import {NavLink, useLocation} from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 export default function Headers() {
@@ -8,10 +8,33 @@ export default function Headers() {
   console.log(isHome)
   const feachtCategories = useAppStore((state) => state.feachtCategories)
   const categories = useAppStore((state) => state.categories) 
-
+  const searchRecipes = useAppStore((state) => state.searchRecipes)
+  const [serchFilter, setSerchFilter] = useState({
+    ingredient: '',
+    category: ''
+  })
+  //useEffect se ejecuta una sola vez cuando el componente se monta 
   useEffect(() =>{
     feachtCategories()
   },[])
+  //Todo Validar que no se ejecute cada vez que se escriba en el input
+  const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>)=>{
+    setSerchFilter({
+      ...serchFilter,
+      [e.target.name]: e.target.value
+    })
+  }
+  // funcion para enviar el formulario y validar que no este vacio
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+     //Todo Validar
+    if(Object.values(serchFilter).includes('')){
+      console.log('Todos lo campos son obligatorios')
+      return
+    }
+    //Consultar todos los resultados
+    searchRecipes(serchFilter)
+  }
   //bg-header es una clase de tailwind que se crea en el archivo tailwind.config.js para agregar un background image
   return (
     <header className={isHome ? "bg-header bg-center bg-cover" : "bg-slate-800"}>
@@ -29,6 +52,7 @@ export default function Headers() {
             { isHome && (
               <form
                 className='md:w-1/2 2xl:w-1/3 bg-cyan-600 my-24 p-10 rounded-lg shadow space-y-6'
+                onSubmit={handleSubmit}
               >
                 <div className="space-y-4">
                   <label 
@@ -43,20 +67,24 @@ export default function Headers() {
                   name='ingredient'
                   className="p-3 focus:outline-none rounded-lg w-full"
                   placeholder="Busca por ingredientes o nombre Ej. Vodka, Tequila, Cafe"
+                  onChange={handleChange}
+                  value={serchFilter.ingredient}
                   />
 
                 </div>
                 <div className="space-y-4">
                   <label 
-                    htmlFor="ingredient"
+                    htmlFor="category"
                     className="block text-white uppercase font-extrabold text-lg"
                   >
                     Selecione Categora
                   </label>
                   <select
-                  id="ingredient"
-                  name='ingredient'
+                  id="category"
+                  name='category'
                   className="p-3 focus:outline-none rounded-lg w-full"
+                  onChange={handleChange}
+                  value={serchFilter.category}
                   >
                   <option value="">-- Seleccione Categoria --</option>
                   {
