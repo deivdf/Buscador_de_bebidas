@@ -19,3 +19,13 @@ export async function getRecipesByCategory(filters: searchFilters) {
        return result.data
     }
 }
+// trae una receta por id de la api para ver su preparacion
+export async function getRecipeById(id: string) {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+     const {data} = await axios(url)
+     const result = DrinksAPIresponse.safeParse(data)
+     console.log(result, 'desde la consulta api')
+     if(result.success) {
+        return result.data
+     }
+}

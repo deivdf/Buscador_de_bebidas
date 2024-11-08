@@ -1,9 +1,16 @@
 import { Drinks } from "../types/type"
-
+import { useAppStore } from "../store/useAppStore"
+import { useNavigate } from "react-router-dom"
 type CardsProps = {
     drinks: Drinks
 }
 export default function Cards({drinks}: CardsProps) {
+  const selectRecipes = useAppStore((state) => state.selectRecipes)
+  const navigate = useNavigate()
+  const handleSubmit = (id: string)=>{
+    navigate('/recetas')
+    selectRecipes(id)
+  }
   return (
     <div className="container grid grid-cols-1 md:grid-cols-3">
         {drinks.drinks.map((item)=>(
@@ -18,7 +25,10 @@ export default function Cards({drinks}: CardsProps) {
             <div className="p-2 bg-cyan-100 rounded-lg my-5"> 
                 <h2 className="font-black text-2xl truncate">{item.strDrink}</h2>
             </div>
-            <button className="bg-cyan-200 p-2 my-3 rounded-lg hover:bg-cyan-500 hover:text-white w-full font-bold">Ver receta</button>
+            <button 
+              className="bg-cyan-200 p-2 my-3 rounded-lg hover:bg-cyan-500 hover:text-white w-full font-bold"
+              onClick={()=>handleSubmit(item.idDrink)}
+              >Ver receta</button>
           </div>
         ))}
     </div>

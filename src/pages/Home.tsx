@@ -11,7 +11,7 @@ export default function Home() {
           <div>
             <h1 className="font-semibold text-center text-6xl">Recetas de Bebidas</h1>
             <Cards
-              key={dirksResponse.drinks[0].idDrink}
+              
               drinks={dirksResponse}
             />
         </div>)}
