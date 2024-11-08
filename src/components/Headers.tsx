@@ -45,8 +45,8 @@ export default function Headers() {
               </div>
               <nav>
                 {/* isActive para resaltar la pagina actual si esta seleccionada con operadores ternarios atraves de el callback que nos ofrece NavLink*/}
-                <NavLink className={({isActive})=> isActive ? "text-orange-500 hover:text-orange-500 font-bold px-4": "text-white hover:text-orange-500 font-bold px-4"} to="/">Home</NavLink>
-                <NavLink className={({isActive})=> isActive ? "text-orange-500 hover:text-orange-500 font-bold px-4": "text-white hover:text-orange-500 font-bold px-4"} to="/Favorite">Favorite</NavLink>
+                <NavLink className={({isActive})=> isActive ? "text-cyan-600 hover:text-cyan-600 font-bold px-4": "text-white hover:text-cyan-600 font-bold px-4"} to="/">Home</NavLink>
+                <NavLink className={({isActive})=> isActive ? "text-cyan-600 hover:text-cyan-600 font-bold px-4": "text-white hover:text-cyan-600 font-bold px-4"} to="/Favorite">Favorite</NavLink>
               </nav>
             </div>
             { isHome && (

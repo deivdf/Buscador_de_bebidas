@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand"
-import { getCategories } from "../service/RecipeService"
+import { getCategories, getRecipesByCategory } from "../service/RecipeService"
 import type { categories, searchFilters } from "../types/type"
 //se crea el slice con el nombre de la funcion y el estado inicial para ello se crea una funcion que retorna el estado inicial
 export type RecipeSliceType = {
@@ -18,6 +18,6 @@ export const createRecipeSlice : StateCreator<RecipeSliceType> = (set) =>({
     },
     //se crea la funcion para buscar recetas
     searchRecipes: async (filters) => {
-        console.log(filters)
+        await getRecipesByCategory(filters)
     }
 })
