@@ -5,7 +5,6 @@ export default function Headers() {
   const location = useLocation()
   console.log(location.pathname)
   const isHome = useMemo(()=> location.pathname === '/', [location.pathname])
-  console.log(isHome)
   const feachtCategories = useAppStore((state) => state.feachtCategories)
   const categories = useAppStore((state) => state.categories) 
   const searchRecipes = useAppStore((state) => state.searchRecipes)
