@@ -10,6 +10,7 @@ export default function Cards({drinks}: CardsProps) {
   const handleSubmit = (id: string)=>{
     navigate('/recetas')
     selectRecipes(id)
+    
   }
   return (
     <div className="container grid grid-cols-1 md:grid-cols-3">

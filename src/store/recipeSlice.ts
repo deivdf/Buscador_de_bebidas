@@ -1,11 +1,12 @@
 import { StateCreator } from "zustand"
 import { getCategories, getRecipesByCategory, getRecipeById } from "../service/RecipeService"
-import type { categories, Drink, Drinks, searchFilters } from "../types/type"
+import type { categories, Drink, Drinks, Recipe, searchFilters } from "../types/type"
 //se crea el slice con el nombre de la funcion y el estado inicial para ello se crea una funcion que retorna el estado inicial
 export type RecipeSliceType = {
     //se crea el estado inicial para las categorias y las recetas
     categories: categories
     drinks: Drinks
+    selectedRecipe: Recipe
     feachtCategories: () => Promise<void>
     searchRecipes: (SearchFilters: searchFilters) => Promise<void>
     selectRecipes: (id: Drink['idDrink']) => Promise<void>
@@ -18,6 +19,7 @@ export const createRecipeSlice : StateCreator<RecipeSliceType> = (set) =>({
     drinks: {
         drinks:[]
     },
+    selectedRecipe: {}as Recipe,
     //se crea la funcion para obtener las categorias desde la apo
     feachtCategories: async ()=>{
         const categories = await getCategories()
@@ -32,9 +34,10 @@ export const createRecipeSlice : StateCreator<RecipeSliceType> = (set) =>({
     },
     //se crea la funcion para mostrar las recetas en detalle
     selectRecipes: async (id) => {
-        const drinks = await getRecipeById(id)
+        const selectedRecipe = await getRecipeById(id)
+        console.log(selectedRecipe)
         set({
-            drinks
+            selectedRecipe
         })
     }
 })
