@@ -6,10 +6,13 @@ export type RecipeSliceType = {
     //se crea el estado inicial para las categorias y las recetas
     categories: categories
     drinks: Drinks
+    modal: boolean
     selectedRecipe: Recipe
     feachtCategories: () => Promise<void>
     searchRecipes: (SearchFilters: searchFilters) => Promise<void>
     selectRecipes: (id: Drink['idDrink']) => Promise<void>
+    //se cierra el dodal
+    closeModal: () => void
 }
 // sintaxis para crear un slice con zustand y se exporta la funcion
 export const createRecipeSlice : StateCreator<RecipeSliceType> = (set) =>({
@@ -20,6 +23,7 @@ export const createRecipeSlice : StateCreator<RecipeSliceType> = (set) =>({
         drinks:[]
     },
     selectedRecipe: {}as Recipe,
+    modal: false,
     //se crea la funcion para obtener las categorias desde la apo
     feachtCategories: async ()=>{
         const categories = await getCategories()
@@ -37,7 +41,14 @@ export const createRecipeSlice : StateCreator<RecipeSliceType> = (set) =>({
         const selectedRecipe = await getRecipeById(id)
         console.log(selectedRecipe)
         set({
-            selectedRecipe
+            selectedRecipe,
+            modal: true
         })
-    }
+    },
+    closeModal() {
+        set({
+            modal: false,
+            selectedRecipe: {} as Recipe
+        })
+    },
 })

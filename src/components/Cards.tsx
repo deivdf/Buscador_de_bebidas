@@ -1,16 +1,14 @@
 import { Drinks } from "../types/type"
 import { useAppStore } from "../store/useAppStore"
-import { useNavigate } from "react-router-dom"
+//import { useNavigate } from "react-router-dom"
 type CardsProps = {
     drinks: Drinks
 }
 export default function Cards({drinks}: CardsProps) {
   const selectRecipes = useAppStore((state) => state.selectRecipes)
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
   const handleSubmit = (id: string)=>{
-    navigate('/recetas')
     selectRecipes(id)
-    
   }
   return (
     <div className="container grid grid-cols-1 md:grid-cols-3">
