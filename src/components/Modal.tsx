@@ -1,11 +1,27 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useAppStore } from '../store/useAppStore';
+import { Recipe } from '../types/type';
 
 export default function Modal() {
   const modal = useAppStore((state) => state.modal);
   const recetas = useAppStore((state)=> state.selectedRecipe)
   const cerrar = useAppStore((state) => state.closeModal)
+  const renderIngredients = () =>{
+    const ingredientes : JSX.Element[] = []
+    for (let i = 1; i<6 ; i++) {
+      const Ingrediente = recetas[`strIngredient${i}` as keyof Recipe]
+      const Measure = recetas[`strMeasure${i}` as keyof Recipe]
+      if(Ingrediente && Measure){
+        ingredientes.push(
+          <li key={i} className="text-lg font-normal">
+            {Ingrediente} - {Measure}
+          </li>
+        )
+      }
+    }
+    return ingredientes
+  }
   return (
     <>
       <Transition appear show={modal} as={Fragment}>
@@ -33,19 +49,34 @@ export default function Modal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-black px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6" >
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg px-4 pt-5 pb-4 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6" >
                   <Dialog.Title as="h3" className="text-white text-4xl font-extrabold my-5 text-center">
                     <img className="w-48 mx-auto" src={recetas.strDrinkThumb} alt="imagen de bebida" />
                   </Dialog.Title>
                   <Dialog.Title as="h3" className="text-white text-4xl font-extrabold my-5 text-center">
-                      {recetas.strDrink}
+                      <p>{recetas.strDrink}</p>
                   </Dialog.Title>
                   <Dialog.Title as="h3" className="text-white text-2xl font-extrabold my-5">
-                    Cantidades: {recetas.strIngredient1} {recetas.strMeasure1} {recetas.strIngredient2} {recetas.strMeasure2} {recetas.strIngredient3} {recetas.strMeasure3} {recetas.strIngredient4} {recetas.strMeasure4} {recetas.strIngredient5} {recetas.strMeasure5} {recetas.strIngredient6} {recetas.strMeasure6}
+                    <p>Ingredientes: {renderIngredients()}</p>
                   </Dialog.Title>
                   <Dialog.Title as="h3" className="text-white text-2xl font-extrabold my-5">
-                    Instruccione: {recetas.strInstructionsES}
+                    <p>Instrucciones: {recetas.strInstructionsES}</p>
                   </Dialog.Title>
+                  <div className="gap-4 mt-5 flex justify-between">
+                      <button
+                        type='button'
+                        className='bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full'
+                        onClick={cerrar}
+                      >
+                        Cerrar
+                      </button>
+                      <button
+                        type='button'
+                        className='bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg w-full'
+                      >
+                        Favorito
+                      </button>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
