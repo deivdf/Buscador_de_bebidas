@@ -3,6 +3,7 @@ import { getCategories, getRecipesByCategory, getRecipeById } from "../service/R
 import type { categories, Drink, Drinks, Recipe, searchFilters } from "../types/type"
 //se crea el slice con el nombre de la funcion y el estado inicial para ello se crea una funcion que retorna el estado inicial
 export type RecipeSliceType = {
+    //se recomienda hacer una divicion por tipo de slice en este caso se crea un slice para las categorias y otro para las recetas
     //se crea el estado inicial para las categorias y las recetas
     categories: categories
     drinks: Drinks
