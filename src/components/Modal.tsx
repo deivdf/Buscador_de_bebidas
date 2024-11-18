@@ -9,6 +9,7 @@ export default function Modal() {
   const cerrar = useAppStore((state) => state.closeModal)
   const handleClickFavorite = useAppStore((state) => state.handleClickFavorite)
   const favoritesExist = useAppStore((state) => state.favoritesExist)
+  //funcion que renderiza los ingredientes y cantidades en funcion si estan o no en la receta
   const renderIngredients = () =>{
     const ingredientes : JSX.Element[] = []
     for (let i = 1; i<6 ; i++) {
