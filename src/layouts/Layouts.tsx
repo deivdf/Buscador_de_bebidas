@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import Headers from '../components/Headers'
 import Modal from '../components/Modal'
 import { useAppStore } from '../store/useAppStore'
+import Notification from '../components/Notification'
 export default function Layouts() {
   //Se crea una funcion para cargar los datos del local storage
   const loadFromStorage = useAppStore((state)=> state.loadFromStorage)
@@ -19,6 +20,7 @@ export default function Layouts() {
         <Outlet />
       </main>
       <Modal/>
+      <Notification/>
     </>
   )
 }
