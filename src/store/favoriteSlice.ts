@@ -1,5 +1,6 @@
 import {StateCreator} from "zustand"
 import { Recipe } from "../types/type"
+import { createNotificationSlice } from "./notificationSlice"
 
 export type favoriteSlicetype = {
     favorites: Recipe[]
@@ -16,6 +17,7 @@ export const CreateFavoriteSlice : StateCreator<favoriteSlicetype> = (set, get) 
             set({
                 favorites: get().favorites.filter(favorite => favorite.idDrink !== recipe.idDrink)
             })
+            //createNotificationSlice.showNotification('Removed from favorites')
         }else{
             //console.log('no existe...')
             set({
