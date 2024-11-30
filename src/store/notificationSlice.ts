@@ -1,4 +1,5 @@
 import {StateCreator} from "zustand"
+import { favoriteSlicetype } from "./favoriteSlice";
 export type Notification={
     text: string,
     error: boolean,
@@ -9,8 +10,8 @@ export type NotificationSliceType = {
     notification: Notification;
     showNotification: (payload: Pick<Notification, "text" | "error">) => void;
 };
-
-export const createNotificationSlice: StateCreator<NotificationSliceType> = (set) => ({
+//NotificationSliceType y favoriteSlicetype para el caso de multiples slices asi se les hace saber que ya los tenemos a las funciones
+export const createNotificationSlice: StateCreator<NotificationSliceType & favoriteSlicetype, [], [],NotificationSliceType > = (set) => ({
     notification: {
         text: "",
         error: false,
@@ -18,14 +19,13 @@ export const createNotificationSlice: StateCreator<NotificationSliceType> = (set
     },
     //se crea una funcion para mostrar la notificacion
     showNotification: (payload) => {
-        set((state) => ({
-            ...state, // Mantén el estado anterior
+        set({
             notification: {
               text: payload.text,
               error: payload.error,
               show: true,
             },
-          }));
+          });
     }
 
 })
