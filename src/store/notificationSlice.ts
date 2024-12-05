@@ -9,9 +9,10 @@ export type Notification={
 export type NotificationSliceType = {
     notification: Notification;
     showNotification: (payload: Pick<Notification, "text" | "error">) => void;
+    hideNotification: () => void;
 };
 //NotificationSliceType y favoriteSlicetype para el caso de multiples slices asi se les hace saber que ya los tenemos a las funciones
-export const createNotificationSlice: StateCreator<NotificationSliceType & favoriteSlicetype, [], [],NotificationSliceType > = (set) => ({
+export const createNotificationSlice: StateCreator<NotificationSliceType & favoriteSlicetype, [], [],NotificationSliceType > = (set, get) => ({
     notification: {
         text: "",
         error: false,
@@ -26,6 +27,15 @@ export const createNotificationSlice: StateCreator<NotificationSliceType & favor
               show: true,
             },
           });
-    }
+    },
+    hideNotification: () => {
+        set({
+            notification: {
+                text: "",
+                error: false,
+                show: false,
+            },
+        })
+    },
 
 })
