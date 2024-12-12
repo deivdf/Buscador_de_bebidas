@@ -8,6 +8,9 @@ export default function Headers() {
   const feachtCategories = useAppStore((state) => state.feachtCategories)
   const categories = useAppStore((state) => state.categories) 
   const searchRecipes = useAppStore((state) => state.searchRecipes)
+  // llamamos a la funcion showNotification para que funcione en este componente y hace el llamadoa al componente
+  // hacemos el llamdo de la funcion espesifica porque los demas slice no estan incluidos en notification slice
+  const showNotification = useAppStore((state) => state.showNotification)
   const [serchFilter, setSerchFilter] = useState({
     ingredient: '',
     category: ''
@@ -28,6 +31,11 @@ export default function Headers() {
     e.preventDefault()
      //Todo Validar
     if(Object.values(serchFilter).includes('')){
+      //para eh¿jecutar en otros componentes usamos el useAppStore y se llama ala funcion showNotification
+      showNotification({
+        text: 'Todos lo campos son obligatorios',
+        error: true
+      })
       console.log('Todos lo campos son obligatorios')
       return
     }

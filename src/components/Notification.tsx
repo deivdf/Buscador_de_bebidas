@@ -5,6 +5,8 @@ import { Transition } from '@headlessui/react'
 import { useAppStore } from '../store/useAppStore'
 
 export default function Notification() {
+  // llamamos a la funcion showNotification para que funcione en este componente y hace el llamadoa al componente
+  // este componente pude ser llamado por las funciones de favoriteSlicer porque esta en incluido en notificationSlice
     const notification = useAppStore((state) => state.notification)
     const closeNotification = useAppStore((state) => state.hideNotification)
     
